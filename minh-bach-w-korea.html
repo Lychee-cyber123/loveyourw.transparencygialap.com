@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Financial transparency and community impact prototype for Love Your W." />
+  <title>LOVE YOUR W — Transparency & Impact</title>
+  
+  <!-- Add Montserrat Font to match W Korea typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    /* W KOREA MONOCHROME THEME */
+    :root {
+      --ink: #000000;          /* Deep Black */
+      --muted: #666666;        /* Dark Gray */
+      --paper: #FFFFFF;        /* Pure White */
+      --white: #ffffff;
+      --line: #E0E0E0;         /* Light Gray border */
+      --rose: #333333;         /* Replaced with dark gray for monochrome */
+      --rose-dark: #000000;    /* Replaced with black */
+      --rose-pale: #F5F5F5;    /* Off-white background */
+      --green: #000000;        /* Replaced with black */
+      --green-pale: #F5F5F5;   
+      --gold: #000000;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .05);
+      --radius: 12px;          /* Slightly sharper corners for modern look */
+      --serif: 'Montserrat', sans-serif; /* Replaced serif with Montserrat */
+      --sans: 'Montserrat', sans-serif;
+    }
+    
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; font-family: var(--sans); color: var(--ink); background: var(--paper); line-height: 1.6; font-weight: 400; }
+    button, input, select { font: inherit; }
+    a { color: inherit; text-decoration: none; }
+    
+    .demo-banner { background: #000000; color: #fff; text-align: center; padding: 9px 18px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; }
+    .demo-banner strong { color: #FFFFFF; }
+    
+    .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.98); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); }
+    .nav { max-width: 1240px; margin: auto; padding: 15px 28px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    
+    /* BRANDING & LOGO */
+    .brand { display: flex; align-items: center; gap: 12px; min-width: 220px; }
+    
+    /* Replace W circle with the actual logo image */
+    .brand-mark { 
+      width: 45px; /* Adjust size based on image proportion */
+      height: 60px; 
+      background-image: url('image_27f127.png'); /* Source 5: W Korea Logo */
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: block; 
+    }
+    
+    .brand-name { font-size: 13px; font-weight: 800; letter-spacing: .15em; line-height: 1.2; text-transform: uppercase; }
+    .brand-name span { display: block; color: var(--muted); font-size: 9px; font-weight: 500; letter-spacing: .22em; margin-top: 4px; }
+    
+    .nav-links { display: flex; gap: 27px; align-items: center; font-size: 12px; font-weight: 500; color: var(--ink); text-transform: uppercase; letter-spacing: 0.05em; }
+    .nav-links a:hover { opacity: 0.6; }
+    .nav-cta { border: 1px solid var(--ink); border-radius: 99px; padding: 10px 18px; font-size: 11px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; transition: .2s; }
+    .nav-cta:hover { background: var(--ink); color: white; }
+    .menu-toggle { display: none; border: 0; background: transparent; font-size: 22px; cursor: pointer;}
+
+    /* ============================================================
+       HERO SECTION — BACKGROUND IMAGE
+       ============================================================
+       ► ĐẶT ẢNH CỦA BẠN vào cùng thư mục với file HTML:
+         C:\Users\Admin\Downloads\
+       ► Đổi tên file bên dưới thành tên ảnh của bạn.
+       ============================================================ */
+
+    .hero {
+      min-height: 550px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 4px solid var(--white);
+      /* Fallback màu nếu ảnh không load */
+      background-color: #0d0208;
+    }
+
+    /* ── LỚP 1: Ảnh nền ── */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      /* ↓↓↓ THAY TÊN FILE ẢNH TẠI ĐÂY ↓↓↓ */
+      background-image: url("C:\Users\Admin\Pictures\Saved Pictures\xsqLeNyDMS7NYxisTzUau1BUiP_X78ECdZZMrvJZmnIHMIpgRGeZEyC-A8hOb_Y9DD8H2_4EHUKWf9T9C3r7CenMxVxqseXCptLGXYBdnlyLuOBMm-LVAMWKs4UL5OpCNLtTBkDkMly671UZTAHpRHv3zgxHZdcRoecpLn7hO7cw3zHtBJSzW7pKqZuuIiah.jpg");
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      z-index: 0;
+    }
+
+    /* ── LỚP 2: Overlay tối để chữ dễ đọc ── */
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.5) 100%),
+        linear-gradient(to top,   rgba(0,0,0,0.6)  0%, transparent        50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    .hero-inner { max-width: 1240px; margin: auto; padding: 100px 28px 90px; position: relative; z-index: 2; display: grid; grid-template-columns: 1.1fr .9fr; gap: 50px; align-items: center; }
+    .eyebrow { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: #FFFFFF; font-weight: 600; opacity: 0.8; }
+    h1 { font-family: var(--serif); font-size: clamp(42px, 6vw, 72px); line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; margin: 20px 0; max-width: 700px; text-transform: uppercase; }
+    h1 em { font-weight: 300; font-style: italic; display: block;}
+    .hero-copy { max-width: 540px; font-size: 15px; line-height: 1.8; color: #E0E0E0; font-weight: 300; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 35px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 99px; padding: 14px 22px; border: 1px solid transparent; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: .3s; }
+    .btn-light { background: white; color: var(--ink); }
+    .btn-light:hover { background: #E0E0E0; }
+    .btn-outline { border-color: rgba(255,255,255,.5); color: white; background: transparent; }
+    .btn-outline:hover { background: white; color: var(--ink); }
+    
+    /* Hero Card (Glassmorphism on Black) */
+    .hero-card { justify-self: end; width: min(100%, 400px); border: 1px solid rgba(255,255,255,.3); background: rgba(0,0,0,.6); backdrop-filter: blur(15px); border-radius: 16px; padding: 30px; box-shadow: 0 25px 50px rgba(0,0,0,.5); }
+    .hero-card-top { display: flex; justify-content: space-between; align-items: center; font-size: 9px; font-weight: 600; letter-spacing: .15em; text-transform: uppercase; color: #FFFFFF; }
+    .live-dot { width: 8px; height: 8px; display: inline-block; background: #FFFFFF; border-radius: 50%; margin-right: 8px; box-shadow: 0 0 0 4px rgba(255,255,255,.2); animation: pulse 2s infinite; }
+    @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,255,255, 0.4); } 70% { box-shadow: 0 0 0 6px rgba(255,255,255, 0); } 100% { box-shadow: 0 0 0 0 rgba(255,255,255, 0); } }
+    .hero-total { font-family: var(--serif); font-size: 48px; font-weight: 700; margin: 20px 0 5px; letter-spacing: -.03em; }
+    .hero-sub { color: #CCCCCC; font-size: 11px; font-weight: 300; }
+    .mini-bar { height: 4px; background: rgba(255,255,255,.2); border-radius: 4px; margin: 25px 0 15px; overflow: hidden; }
+    .mini-bar span { display: block; width: 75%; height: 100%; background: #FFFFFF; border-radius: 4px; }
+    .hero-card-foot { display: flex; justify-content: space-between; color: #FFFFFF; font-size: 11px; font-weight: 500;}
+    .hero-card-note { margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,.2); font-size: 10px; line-height: 1.6; color: #AAAAAA; font-weight: 300;}
+
+    /* GENERAL SECTIONS */
+    .section { max-width: 1240px; margin: auto; padding: 100px 28px; }
+    .section-head { display: flex; align-items: end; justify-content: space-between; gap: 30px; margin-bottom: 50px; border-bottom: 2px solid var(--ink); padding-bottom: 20px; }
+    .section-kicker { color: var(--ink); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .2em; margin-bottom: 10px; }
+    h2 { font-family: var(--serif); font-weight: 800; font-size: clamp(32px, 4vw, 48px); letter-spacing: -0.02em; line-height: 1.1; margin: 0; text-transform: uppercase; }
+    .section-intro { max-width: 450px; color: var(--muted); font-size: 13px; line-height: 1.8; margin: 0; font-weight: 400; }
+    
+    .stats-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .stat-card { background: white; border: 1px solid var(--ink); border-radius: 0px; padding: 30px; min-height: 160px; box-shadow: 4px 4px 0px var(--line); transition: transform 0.2s; }
+    .stat-card:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--ink); border-color: var(--ink); }
+    .stat-label { color: var(--ink); font-size: 10px; font-weight: 700; letter-spacing: .15em; text-transform: uppercase; }
+    .stat-value { font-family: var(--serif); font-weight: 700; font-size: clamp(32px,3.5vw,46px); letter-spacing: -.03em; margin: 15px 0 5px; }
+    .stat-foot { color: var(--muted); font-size: 10px; font-weight: 500; }
+    .micro-note { font-size: 10px; color: var(--muted); margin-top: 20px; font-style: italic; }
+
+    /* PROCESS SECTION */
+    .process-section { background: var(--rose-pale); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .process-inner { max-width: 1240px; padding: 100px 28px; margin: auto; }
+    .process-inner .section-head { border-bottom: 2px solid var(--ink); }
+    .process-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 30px; margin-top: 50px; }
+    .process-step { padding: 0 20px 0 0; position: relative; }
+    .process-step:not(:last-child)::after { content: '→'; position: absolute; font-size: 20px; color: var(--line); top: 10px; right: 0; }
+    .step-number { width: 45px; height: 45px; display: grid; place-items: center; background: var(--ink); color: white; border-radius: 50%; font-family: var(--serif); font-size: 16px; font-weight: 700; margin-bottom: 20px;}
+    .process-step h3 { font-size: 15px; font-weight: 700; margin: 0 0 10px; text-transform: uppercase; }
+    .process-step p { color: var(--muted); font-size: 13px; line-height: 1.7; max-width: 240px; font-weight: 400; }
+
+    /* PROJECTS SECTION */
+    .projects-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; align-items: stretch; }
+    .map-card { background: var(--rose-pale); border: 1px solid var(--line); border-radius: 0px; padding: 30px; min-height: 450px; position: relative; overflow: hidden; display: flex; flex-direction: column; }
+    .map-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; position: relative; z-index: 2; margin-bottom: 20px;}
+    .map-top strong { font-size: 14px; font-weight: 700; text-transform: uppercase; }
+    .map-top span { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; }
+    
+    .map-art { flex: 1; width: 100%; height: auto; opacity: 0.8; }
+    
+    .map-legend { background: var(--white); border: 1px solid var(--ink); padding: 15px 20px; display: flex; justify-content: space-between; gap: 15px; z-index: 2; margin-top: 20px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; color: var(--ink); font-size: 11px; font-weight: 600; text-transform: uppercase;}
+    .pin { width: 10px; height: 10px; border-radius: 50%; background: var(--ink); box-shadow: 0 0 0 4px rgba(0,0,0,.1); }
+    
+    .project-list { display: grid; gap: 15px; }
+    .project-card { background: white; border: 1px solid var(--line); padding: 25px; display: grid; grid-template-columns: 1fr auto; gap: 15px; transition: all .2s ease; cursor: pointer; }
+    .project-card:hover { border-color: var(--ink); background: var(--rose-pale); transform: translateX(5px); }
+    .project-category { color: var(--ink); text-transform: uppercase; font-weight: 700; font-size: 10px; letter-spacing: .15em; }
+    .project-card h3 { font-size: 16px; font-weight: 700; margin: 10px 0 8px; }
+    .project-meta { font-size: 11px; color: var(--muted); font-weight: 500; }
+    .project-amount { text-align: right; font-family: var(--serif); font-size: 22px; font-weight: 700; white-space: nowrap; }
+    
+    /* Monochrome Status Tags */
+    .status { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--ink); border-radius: 99px; padding: 6px 10px; font-size: 9px; font-weight: 700; text-transform: uppercase; margin-top: 15px; }
+    .status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+    .status.done { background: var(--ink); color: var(--white); }
+    .status.progress { background: var(--white); color: var(--ink); }
+    .status.review { background: var(--line); color: var(--ink); border-color: var(--muted); }
+    
+    .project-bottom { grid-column: 1 / -1; display: flex; align-items: center; gap: 15px; margin-top: 10px; }
+    .progress-track { background: var(--line); height: 4px; flex: 1; overflow: hidden; }
+    .progress-track span { display: block; height: 100%; background: var(--ink); }
+    .progress-text { color: var(--ink); font-size: 10px; font-weight: 700; }
+
+    /* LEDGER SECTION */
+    .ledger-section { background: var(--ink); color: white; padding: 100px 0; }
+    .ledger-inner { max-width: 1240px; padding: 0 28px; margin: auto; }
+    .ledger-section .section-head { border-bottom-color: rgba(255,255,255,0.2); }
+    .ledger-section .section-kicker { color: var(--white); opacity: 0.8; }
+    .ledger-section .section-intro { color: #CCCCCC; }
+    
+    .ledger-tools { display: flex; flex-wrap: wrap; gap: 15px; margin: 35px 0 20px; }
+    .control { background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.3); border-radius: 4px; padding: 12px 18px; font-size: 12px; outline: none; transition: 0.2s; font-family: var(--sans); }
+    .control::placeholder { color: rgba(255,255,255,0.5); }
+    .control:focus { border-color: white; background: rgba(255,255,255,0.15); }
+    select.control { min-width: 160px; appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right 15px top 50%; background-size: 10px auto; }
+    select.control option { background: var(--ink); color: white; }
+    
+    .ledger-count { color: #AAAAAA; font-size: 11px; margin: 0 0 15px; font-weight: 500; }
+    .table-wrap { overflow-x: auto; border: 1px solid rgba(255,255,255,0.2); border-radius: 0px; background: rgba(255,255,255,0.03); }
+    table { width: 100%; border-collapse: collapse; min-width: 800px; }
+    th, td { text-align: left; padding: 18px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 12px; }
+    th { color: #FFFFFF; font-size: 10px; text-transform: uppercase; letter-spacing: .15em; font-weight: 700; background: rgba(255,255,255,0.05); }
+    td { color: #E0E0E0; font-weight: 300; }
+    tr:last-child td { border-bottom: 0; }
+    tr:hover td { background: rgba(255,255,255,0.05); }
+    .table-amount { font-family: var(--serif); font-size: 16px; font-weight: 700; white-space: nowrap; color: white; }
+    
+    .table-status { font-size: 9px; font-weight: 700; text-transform: uppercase; border: 1px solid; border-radius: 99px; padding: 5px 10px; white-space: nowrap; }
+    .table-status.verified { color: var(--ink); background: var(--white); border-color: var(--white); }
+    .table-status.pending { color: var(--white); background: transparent; border-color: rgba(255,255,255,0.5); }
+    
+    .table-action { background: transparent; color: white; border: 0; cursor: pointer; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; text-decoration: underline; font-family: var(--sans); }
+    .table-action:hover { color: #AAAAAA; }
+    .empty-row { text-align: center; color: #AAAAAA; padding: 40px; }
+    .ledger-footnote { color: #888888; font-size: 11px; line-height: 1.7; margin-top: 20px; font-weight: 300; }
+
+    /* REPORTS SECTION */
+    .reports-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .report-panel { background: white; border: 1px solid var(--ink); padding: 40px; }
+    .report-panel h3 { margin: 0 0 15px; font-family: var(--serif); font-size: 28px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.02em; }
+    .report-panel > p { font-size: 13px; color: var(--muted); line-height: 1.7; margin: 0 0 30px; font-weight: 400;}
+    .report-row { display: flex; justify-content: space-between; align-items: center; gap: 15px; border-top: 1px solid var(--line); padding: 20px 0; }
+    .report-row:last-child { padding-bottom: 0; }
+    .report-row strong { display: block; font-size: 13px; font-weight: 700; }
+    .report-row small { display: block; font-size: 11px; color: var(--muted); margin-top: 6px; font-weight: 400; }
+    .doc-button { border: 1px solid var(--ink); background: white; border-radius: 99px; padding: 10px 16px; color: var(--ink); font-size: 10px; font-weight: 700; text-transform: uppercase; cursor: pointer; white-space: nowrap; transition: 0.2s;}
+    .doc-button:hover { background: var(--ink); color: white; }
+    
+    .audit-callout { margin-top: 30px; display: flex; gap: 20px; align-items: flex-start; background: var(--rose-pale); border: 1px solid var(--line); padding: 30px; }
+    .audit-icon { width: 40px; height: 40px; background: var(--ink); color: white; display: grid; place-items: center; font-size: 18px; font-weight: bold; flex: 0 0 auto; border-radius: 50%; }
+    .audit-callout strong { display: block; font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px;}
+    .audit-callout p { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; font-weight: 400; }
+
+    /* PRINCIPLES SECTION */
+    .principles { background: var(--rose-pale); border-top: 1px solid var(--line); }
+    .principles-inner { max-width: 1240px; margin: auto; padding: 100px 28px; }
+    .principles-inner .section-head { border-bottom: 2px solid var(--ink); }
+    .principle-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 30px; margin-top: 50px; }
+    .principle { padding: 35px; background: white; border: 1px solid var(--line); }
+    .principle .num { font-family: var(--serif); font-size: 32px; font-weight: 800; color: var(--ink); border-bottom: 2px solid var(--ink); display: inline-block; padding-bottom: 5px; margin-bottom: 20px;}
+    .principle h3 { font-size: 16px; font-weight: 700; margin: 0 0 12px; text-transform: uppercase; }
+    .principle p { color: var(--muted); font-size: 13px; line-height: 1.7; margin: 0; font-weight: 400; }
+    
+    /* FOOTER */
+    .footer { background: var(--ink); color: white; padding: 60px 28px; border-top: 4px solid var(--white); }
+    .footer-inner { max-width: 1240px; margin: auto; display: flex; justify-content: space-between; gap: 40px; align-items: flex-end; }
+    .footer .brand-name { color: white; }
+    .footer .brand-name span { color: #AAAAAA; }
+    .footer p { color: #888888; font-size: 11px; line-height: 1.7; max-width: 500px; margin: 15px 0 0; font-weight: 300; }
+    .footer-right { color: #FFFFFF; font-size: 10px; font-weight: 700; text-align: right; letter-spacing: .1em; text-transform: uppercase; }
+
+    /* MODAL */
+    .modal-backdrop { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.8); display: none; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); }
+    .modal-backdrop.open { display: flex; }
+    .modal { width: min(100%, 600px); max-height: 90vh; overflow-y: auto; background: var(--paper); padding: 40px; position: relative; box-shadow: 0 25px 90px rgba(0,0,0,.5); border: 1px solid var(--line); }
+    .modal-close { position: absolute; top: 20px; right: 20px; border: 0; background: transparent; font-size: 32px; cursor: pointer; color: var(--ink); line-height: 1; }
+    .modal-close:hover { opacity: 0.5; }
+    .modal-kicker { color: var(--ink); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .15em; margin-bottom: 10px; border-bottom: 1px solid var(--ink); display: inline-block; padding-bottom: 5px; }
+    .modal h3 { font-family: var(--serif); font-size: 28px; font-weight: 800; margin: 15px 40px 20px 0; line-height: 1.2; text-transform: uppercase;}
+    .modal-body { font-size: 13px; color: var(--muted); line-height: 1.8; font-weight: 400;}
+    .modal-data { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
+    .modal-data div { background: var(--rose-pale); border: 1px solid var(--line); padding: 15px; }
+    .modal-data small { display: block; color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600;}
+    .modal-data strong { display: block; font-size: 14px; margin-top: 5px; color: var(--ink); }
+    .modal-warning { background: var(--ink); color: white; padding: 15px 20px; font-size: 11px; line-height: 1.6; margin-top: 25px; font-weight: 300; }
+    .modal-warning b { font-weight: 700; }
+
+    @media (max-width: 992px) {
+      .hero-inner { grid-template-columns: 1fr; text-align: center; justify-items: center; padding-top: 60px; }
+      .hero h1 { font-size: 56px; }
+      .hero-copy { text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-card { justify-self: center; margin-top: 20px; }
+      .stats-grid { grid-template-columns: repeat(2,1fr); }
+      .projects-layout { grid-template-columns: 1fr; }
+      .map-card { min-height: 400px; }
+      .reports-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav { padding: 15px 20px; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 76px; left: 0; right: 0; padding: 25px; background: var(--paper); border-bottom: 1px solid var(--ink); flex-direction: column; align-items: flex-start; gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+      .nav-links.open { display: flex; }
+      .nav-cta { width: 100%; text-align: center; }
+      .section, .process-inner, .ledger-inner, .principles-inner { padding: 70px 20px; }
+      .section-head { display: block; margin-bottom: 30px; }
+      .section-intro { margin-top: 15px; }
+      .process-grid, .principle-grid { grid-template-columns: 1fr; gap: 30px; }
+      .process-step:not(:last-child)::after { display: none; }
+      .process-step { padding: 0; }
+      .process-step p { max-width: 100%; }
+      .footer-inner { flex-direction: column; align-items: flex-start; gap: 20px; }
+      .footer-right { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-banner"><strong>Demo Data</strong> — Not official data of W Korea or Love Your W</div>
+  
+  <header class="site-header">
+    <nav class="nav" aria-label="Main Navigation">
+      <a class="brand" href="#top" aria-label="Love Your W Transparency Homepage">
+        <div class="brand-mark"></div> <!-- Uses image_27f127.png -->
+        <div class="brand-name">LOVE YOUR W<span>TRANSPARENCY & IMPACT</span></div>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">☰</button>
+      <div class="nav-links" id="navLinks">
+        <a href="#overview">Overview</a>
+        <a href="#projects">Projects</a>
+        <a href="#ledger">Financials</a>
+        <a href="#reports">Reports</a>
+        <a class="nav-cta" href="#reports">Public Documents ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="eyebrow">20 years of giving · A new standard of transparency</div>
+          <h1>Every gift.<br /><em>Every impact.</em></h1>
+          <p class="hero-copy">We believe trust begins with verifiability. Track the journey of every contribution — from receipt, allocation, disbursement, to the practical support created for patients.</p>
+          <div class="hero-actions">
+            <a class="btn btn-light" href="#ledger">Track Funds <span>↗</span></a>
+            <a class="btn btn-outline" href="#projects">Explore Impact</a>
+          </div>
+        </div>
+        <aside class="hero-card" aria-label="Funding overview illustration">
+          <div class="hero-card-top"><span><i class="live-dot"></i> Transparency snapshot</span><span>Demo / 2026</span></div>
+          <div class="hero-total">₩5.2B</div>
+          <div class="hero-sub">Total funds received · 20 Years Demo</div>
+          <div class="mini-bar"><span></span></div>
+          <div class="hero-card-foot"><span>Disbursed: ₩5.2B</span><strong>100%</strong></div>
+          <div class="hero-card-note">Disbursement ratios are published only after reconciling bank statements, beneficiary confirmations, and independent audits.</div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="overview">
+      <div class="section-head">
+        <div><div class="section-kicker">The numbers behind the impact</div><h2>Transparency in<br />Numbers.</h2></div>
+        <p class="section-intro">This dashboard helps the public quickly grasp the scale of funds and support outcomes. Every metric leads to detailed data or verification documents.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Total Received</div><div class="stat-value">₩5.2B</div><div class="stat-foot">All contributions · DEMO</div></div>
+        <div class="stat-card"><div class="stat-label">Disbursed</div><div class="stat-value">₩5.2B</div><div class="stat-foot">100% of funds · DEMO</div></div>
+        <div class="stat-card"><div class="stat-label">Patients Supported</div><div class="stat-value">12,500</div><div class="stat-foot">Screening & treatment · DEMO</div></div>
+        <div class="stat-card"><div class="stat-label">Partner Institutions</div><div class="stat-value">14</div><div class="stat-foot">Hospitals & NGOs · DEMO</div></div>
+      </div>
+      <p class="micro-note">* All figures on this website are generated to illustrate the interface. Do not use as actual reporting data.</p>
+    </section>
+
+    <section class="process-section">
+      <div class="process-inner">
+        <div class="section-kicker">Follow the contribution</div>
+        <h2>From contribution<br />to care.</h2>
+        <p class="section-intro" style="margin-top:15px">A contribution needs a continuous trail. These four steps form the tracking logic proposed by this platform.</p>
+        <div class="process-grid">
+          <div class="process-step"><div class="step-number">01</div><h3>Receipt</h3><p>Record the source of funds, timing, contribution method, and total value received.</p></div>
+          <div class="process-step"><div class="step-number">02</div><h3>Allocation</h3><p>Publish the recipient organization, intended purpose, approved budget, and relevant agreements.</p></div>
+          <div class="process-step"><div class="step-number">03</div><h3>Disbursement</h3><p>Reconcile transfer documents, confirm receipt, and update disbursement status.</p></div>
+          <div class="process-step"><div class="step-number">04</div><h3>Impact Report</h3><p>Update patient numbers, services deployed, and results provided by partners, subject to verification.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-head">
+        <div><div class="section-kicker">Where contributions go</div><h2>The impact<br />in action.</h2></div>
+        <p class="section-intro">Track programs by receiving entity, deployment region, and implementation status. Click on each program to view details.</p>
+      </div>
+      <div class="projects-layout">
+        <div class="map-card">
+          <div class="map-top"><strong>Program Network</strong><span>South Korea · Demo</span></div>
+          <svg class="map-art" viewBox="0 0 520 500" role="img" aria-label="Illustration of program regions in South Korea">
+            <defs><linearGradient id="land" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#E0E0E0"/></linearGradient></defs>
+            <path d="M270 52 C300 62 329 80 333 111 C347 131 331 154 341 178 C356 197 339 218 351 238 C354 259 330 275 335 295 C323 322 311 339 298 365 C286 393 264 418 251 433 C229 426 221 400 209 382 C196 360 178 348 175 321 C164 298 173 272 159 251 C150 229 166 204 158 183 C151 161 171 142 168 119 C184 96 202 87 215 66 C231 50 250 42 270 52 Z" fill="url(#land)" stroke="#CCCCCC" stroke-width="2"/>
+            <g font-family="'Montserrat', sans-serif" font-weight="700" font-size="11" fill="#000000">
+              <text x="348" y="115">SEOUL</text><text x="354" y="246">DAEGU</text><text x="305" y="380">BUSAN</text><text x="123" y="291">GWANGJU</text>
+            </g>
+            <g><circle cx="309" cy="103" r="7" fill="#000000"/><circle cx="309" cy="103" r="15" fill="#000000" opacity=".1"/><circle cx="290" cy="248" r="7" fill="#000000"/><circle cx="290" cy="248" r="15" fill="#000000" opacity=".1"/><circle cx="271" cy="372" r="7" fill="#000000"/><circle cx="271" cy="372" r="15" fill="#000000" opacity=".1"/><circle cx="190" cy="282" r="7" fill="#000000"/><circle cx="190" cy="282" r="15" fill="#000000" opacity=".1"/></g>
+            <path d="M309 103 Q355 175 290 248 T271 372" fill="none" stroke="#000000" stroke-width="1.5" stroke-dasharray="5 7" opacity=".4"/>
+          </svg>
+          <div class="map-legend"><div class="legend-item"><i class="pin"></i> Deployment locations</div><div class="legend-item">4 regions · demo data</div></div>
+        </div>
+        <div class="project-list" id="projectList">
+          <article class="project-card" data-project="screening" tabindex="0" role="button" aria-label="View community screening program">
+            <div>
+              <div class="project-category">Early detection</div>
+              <h3>Community Screening Program</h3>
+              <div class="project-meta">Partner: Medical Center A · Seoul</div>
+              <span class="status done">Completed</span>
+            </div>
+            <div class="project-amount">₩620M</div>
+            <div class="project-bottom">
+              <div class="progress-track"><span style="width:100%"></span></div><span class="progress-text">100% budget</span>
+            </div>
+          </article>
+          
+          <article class="project-card" data-project="treatment" tabindex="0" role="button" aria-label="View treatment support fund">
+            <div>
+              <div class="project-category">Patient care</div>
+              <h3>Treatment Support Fund</h3>
+              <div class="project-meta">Partner: Hospital B · Busan</div>
+              <span class="status progress">In Progress</span>
+            </div>
+            <div class="project-amount">₩780M</div>
+            <div class="project-bottom">
+              <div class="progress-track"><span style="width:68%"></span></div><span class="progress-text">68% budget</span>
+            </div>
+          </article>
+          
+          <article class="project-card" data-project="research" tabindex="0" role="button" aria-label="View psychological counseling program">
+            <div>
+              <div class="project-category">Support & research</div>
+              <h3>Psychological Counseling & Research</h3>
+              <div class="project-meta">Partner: Institute C · Daegu</div>
+              <span class="status review">Under Review</span>
+            </div>
+            <div class="project-amount">₩400M</div>
+            <div class="project-bottom">
+              <div class="progress-track"><span style="width:42%"></span></div><span class="progress-text">42% budget</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="ledger-section" id="ledger">
+      <div class="ledger-inner">
+        <div class="section-head">
+          <div><div class="section-kicker">Financial tracking</div><h2>Follow the funds.</h2></div>
+          <p class="section-intro">This sample ledger demonstrates how the public can search for funds by year, recipient, and verification status. Sensitive beneficiary information is never published.</p>
+        </div>
+        <div class="ledger-tools">
+          <input class="control" id="searchInput" type="search" placeholder="Search entity / purpose..." aria-label="Search transactions" />
+          <select class="control" id="yearFilter" aria-label="Filter by year">
+            <option value="all">All Years</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+          </select>
+          <select class="control" id="statusFilter" aria-label="Filter by status">
+            <option value="all">All Statuses</option>
+            <option value="verified">Verified</option>
+            <option value="pending">Under Review</option>
+          </select>
+        </div>
+        <p class="ledger-count" id="ledgerCount">Showing 5 demo transactions</p>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Date</th><th>Recipient Entity</th><th>Purpose</th><th>Year</th><th>Amount</th><th>Status</th><th></th></tr></thead>
+            <tbody id="ledgerBody">
+              <tr data-year="2026" data-status="verified" data-search="medical center a community screening">
+                <td>18.09.2026</td><td>Medical Center A</td><td>Community Screening</td><td>2026</td><td class="table-amount">₩250M</td><td><span class="table-status verified">Verified</span></td><td><button class="table-action" data-transaction="t1">Details ↗</button></td>
+              </tr>
+              <tr data-year="2026" data-status="pending" data-search="hospital b treatment support">
+                <td>02.08.2026</td><td>Hospital B</td><td>Treatment Support</td><td>2026</td><td class="table-amount">₩180M</td><td><span class="table-status pending">Under Review</span></td><td><button class="table-action" data-transaction="t2">Details ↗</button></td>
+              </tr>
+              <tr data-year="2025" data-status="verified" data-search="health fund c patient counseling">
+                <td>12.12.2025</td><td>Health Fund C</td><td>Patient Counseling</td><td>2025</td><td class="table-amount">₩320M</td><td><span class="table-status verified">Verified</span></td><td><button class="table-action" data-transaction="t3">Details ↗</button></td>
+              </tr>
+              <tr data-year="2025" data-status="verified" data-search="hospital d screening">
+                <td>25.06.2025</td><td>Hospital D</td><td>Screening</td><td>2025</td><td class="table-amount">₩140M</td><td><span class="table-status verified">Verified</span></td><td><button class="table-action" data-transaction="t4">Details ↗</button></td>
+              </tr>
+              <tr data-year="2024" data-status="verified" data-search="organization e health communication">
+                <td>04.11.2024</td><td>Organization E</td><td>Health Communication</td><td>2024</td><td class="table-amount">₩95M</td><td><span class="table-status verified">Verified</span></td><td><button class="table-action" data-transaction="t5">Details ↗</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="ledger-footnote">Note: Entity names, transaction dates, amounts, and statuses are mock data. The official website should only display reconciled transactions, accompanied by verifiable document codes. Never publish names, medical records, or identifying information of patients.</p>
+      </div>
+    </section>
+
+    <section class="section" id="reports">
+      <div class="section-head">
+        <div><div class="section-kicker">Evidence & accountability</div><h2>Reports you<br />can verify.</h2></div>
+        <p class="section-intro">Consolidating financial, audit, and impact documents in one place. Documents should be archived by year with clear versioning.</p>
+      </div>
+      <div class="reports-grid">
+        <div class="report-panel">
+          <h3>Annual Reports</h3>
+          <p>Comprehensive reports on revenues, budget allocation, operational costs, and support outcomes for each year.</p>
+          <div class="report-row">
+            <div><strong>20-Year Summary Report</strong><small>2005–2025 · Structural Template</small></div>
+            <button class="doc-button" data-doc="20year">View Sample ↗</button>
+          </div>
+          <div class="report-row">
+            <div><strong>Annual Report 2026</strong><small>Expected post-reconciliation</small></div>
+            <button class="doc-button" data-doc="2026">View Sample ↗</button>
+          </div>
+          <div class="report-row">
+            <div><strong>Community Impact Report</strong><small>Beneficiaries and services deployed</small></div>
+            <button class="doc-button" data-doc="impact">View Sample ↗</button>
+          </div>
+        </div>
+        
+        <div class="report-panel">
+          <h3>Independent Audit</h3>
+          <p>Publishing independent verification documents and outlining the audit scope so readers understand exactly what was reviewed.</p>
+          <div class="report-row">
+            <div><strong>Independent Audit Report</strong><small>Auditor · Period · Opinion</small></div>
+            <button class="doc-button" data-doc="audit">View Sample ↗</button>
+          </div>
+          <div class="report-row">
+            <div><strong>Receipts – Disbursements Reconciliation</strong><small>Bank reconciliation & partner confirmation</small></div>
+            <button class="doc-button" data-doc="reconciliation">View Sample ↗</button>
+          </div>
+          <div class="report-row">
+            <div><strong>Transparency & Data Policy</strong><small>Disclosure scope and privacy protection</small></div>
+            <button class="doc-button" data-doc="policy">View Sample ↗</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="audit-callout">
+        <div class="audit-icon">✓</div>
+        <div>
+          <strong>Independent verification matters.</strong>
+          <p>Do not self-label internal data as "audited". Only display an audited status when an official report is available, clearly stating the auditing firm, reporting period, scope, and conclusion.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="principles">
+      <div class="principles-inner">
+        <div class="section-kicker">Our accountability commitments</div><h2>Trust is a practice.</h2>
+        <div class="principle-grid">
+          <div class="principle"><div class="num">01</div><h3>Clear Source & Destination</h3><p>Distinguish between public donations, corporate sponsorships, in-kind gifts, event revenue, and actual funds transferred to beneficiaries.</p></div>
+          <div class="principle"><div class="num">02</div><h3>Scheduled Updates</h3><p>Publish quarterly and annual reports; clearly state the update date, data period, and any adjustments made.</p></div>
+          <div class="principle"><div class="num">03</div><h3>Patient Protection</h3><p>Only publish aggregated data or explicitly consented data; never display identifying information of patients.</p></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <div class="brand-name" style="font-size: 16px;">LOVE YOUR W<br><span>TRANSPARENCY & IMPACT</span></div>
+        <p>Sản phẩm giả định phục vụ mục đích học tập của môn học, không sử dụng hoặc chia sẻ công khai dưới danh nghĩa sản phẩm chính thức.</p>
+      </div>
+      <div class="footer-right">DEMO WEBSITE</div>
+    </div>
+  </footer>
+
+  <!-- MODAL COMPONENT -->
+  <div class="modal-backdrop" id="modalBackdrop" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+      <div class="modal-kicker" id="modalKicker">Transparency detail</div>
+      <h3 id="modalTitle">Details</h3>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalKicker = document.getElementById('modalKicker');
+    const modalBody = document.getElementById('modalBody');
+
+    function openModal(kicker, title, body) {
+      modalKicker.textContent = kicker;
+      modalTitle.textContent = title;
+      modalBody.innerHTML = body;
+      modalBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      modalBackdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    
+    document.getElementById('modalClose').addEventListener('click', closeModal);
+    modalBackdrop.addEventListener('click', (event) => { if (event.target === modalBackdrop) closeModal(); });
+    document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeModal(); });
+
+    // Project Modal Data
+    const projectDetails = {
+      screening: {
+        title: 'Community Screening Program',
+        body: '<p>Program coordinated with Medical Center A in Seoul. This section simulates the presentation of objectives, budget, progress, and outcomes.</p><div class="modal-data"><div><small>Allocated Budget</small><strong>₩620M · DEMO</strong></div><div><small>Progress</small><strong>Completed</strong></div><div><small>Screenings</small><strong>4,200 · DEMO</strong></div><div><small>Documents</small><strong>3 sample docs</strong></div></div><p><b>Documents to publish:</b> allocation decision, redacted transfer receipts, confirmation of receipt, and partner summary report.</p>'
+      },
+      treatment: {
+        title: 'Treatment Support Fund',
+        body: '<p>Treatment cost support program for eligible patients through Hospital B in Busan.</p><div class="modal-data"><div><small>Allocated Budget</small><strong>₩780M · DEMO</strong></div><div><small>Progress</small><strong>In Progress</strong></div><div><small>Disbursed</small><strong>68% · DEMO</strong></div><div><small>Support Records</small><strong>Anonymized</strong></div></div><p><b>Documents to publish:</b> approval criteria, total approved applications, total amount supported, and confirmation report from the hospital. Do not publish names or medical records.</p>'
+      },
+      research: {
+        title: 'Psychological Counseling & Research',
+        body: '<p>Program coordinated with Institute C in Daegu. Data is currently under review in this simulation.</p><div class="modal-data"><div><small>Estimated Budget</small><strong>₩400M · DEMO</strong></div><div><small>Progress</small><strong>Under Review</strong></div><div><small>Deployed</small><strong>42% · DEMO</strong></div><div><small>Verifying Entity</small><strong>Institute C · DEMO</strong></div></div><p><b>Documents to publish:</b> implementation plan, progress report, explanation for undisbursed funds, and next update milestone.</p>'
+      }
+    };
+    
+    document.querySelectorAll('.project-card').forEach(card => {
+      const show = () => { const item = projectDetails[card.dataset.project]; openModal('Project tracker · Demo data', item.title, item.body); };
+      card.addEventListener('click', show);
+      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(); } });
+    });
+
+    // Transaction Modal Data
+    const transactionDetails = {
+      t1: ['18.09.2026', 'Medical Center A', '₩250M', 'Verified', 'Simulated transfer for the community screening program. The official website should link to transfer receipts with redacted account data and the receipt confirmation document.'],
+      t2: ['02.08.2026', 'Hospital B', '₩180M', 'Under Review', 'The sample funds are awaiting document reconciliation and confirmation from the recipient. Should not be counted in total verified disbursements until reconciliation is complete.'],
+      t3: ['12.12.2025', 'Health Fund C', '₩320M', 'Verified', 'Simulated transfer for patient counseling and support activities.'],
+      t4: ['25.06.2025', 'Hospital D', '₩140M', 'Verified', 'Simulated transfer for screening activities.'],
+      t5: ['04.11.2024', 'Organization E', '₩95M', 'Verified', 'Simulated transfer for health communication program.']
+    };
+    
+    document.querySelectorAll('[data-transaction]').forEach(button => {
+      button.addEventListener('click', () => {
+        const d = transactionDetails[button.dataset.transaction];
+        openModal('Transaction record · Demo data', d[1], `<div class="modal-data"><div><small>Transaction Date</small><strong>${d[0]}</strong></div><div><small>Amount</small><strong>${d[2]}</strong></div><div><small>Status</small><strong>${d[3]}</strong></div><div><small>Record ID</small><strong>DEMO-${button.dataset.transaction.toUpperCase()}</strong></div></div><p>${d[4]}</p><div class="modal-warning"><b>Mock Data.</b> In live implementation, only assign a "verified" status after possessing sufficient documentation and corresponding independent confirmation.</div>`);
+      });
+    });
+
+    // Documents Modal Data
+    const docs = {
+      '20year': ['20-Year Summary Report', 'Proposed structure: time scope; total received by year; revenue sources; beneficiaries; amount transferred to each entity; unallocated funds; support outcomes; reconciliation methodology and data limitations.'],
+      '2026': ['Annual Report 2026', 'Proposed structure: income-expense report; opening/closing balance reconciliation; disbursed funds; committed but undisbursed funds; operational costs; impact report; audit opinion (if completed).'],
+      'impact': ['Community Impact Report', 'Proposed structure: definitions of metrics; unique patients vs. service instances (do not conflate); support criteria; program results; verifying entity; personal data protection methods.'],
+      'audit': ['Independent Audit Report', 'The document must clearly state the audited legal entity, reporting period, applied standards, management responsibilities, auditor responsibilities, audit scope, and audit opinion. Internal confirmation letters cannot substitute for an audit report.'],
+      'reconciliation': ['Receipts – Disbursements Reconciliation', 'Should reconcile at minimum: accounting ledgers; bank statements; beneficiary receipts; contracts/agreements; opening and closing balances; refunds or adjustments.'],
+      'policy': ['Transparency & Data Policy', 'Should publish the scope of public data, update frequency, error correction process, contact for inquiries, document retention policy, and principles for protecting patient/donor identities.']
+    };
+    
+    document.querySelectorAll('[data-doc]').forEach(button => {
+      button.addEventListener('click', () => {
+        const d = docs[button.dataset.doc];
+        openModal('Report library · Template', d[0], `<p>${d[1]}</p><div class="modal-warning"><b>Template only.</b> This is a structural description for reference, not an official report or issued audit document.</div>`);
+      });
+    });
+
+    // Filter Logic
+    const searchInput = document.getElementById('searchInput');
+    const yearFilter = document.getElementById('yearFilter');
+    const statusFilter = document.getElementById('statusFilter');
+    const ledgerRows = [...document.querySelectorAll('#ledgerBody tr')];
+    
+    function filterLedger() {
+      const query = searchInput.value.trim().toLowerCase();
+      const year = yearFilter.value;
+      const status = statusFilter.value;
+      let visible = 0;
+      
+      ledgerRows.forEach(row => {
+        const matchesQuery = !query || row.dataset.search.includes(query) || row.innerText.toLowerCase().includes(query);
+        const matchesYear = year === 'all' || row.dataset.year === year;
+        const matchesStatus = status === 'all' || row.dataset.status === status;
+        const show = matchesQuery && matchesYear && matchesStatus;
+        
+        row.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      
+      document.getElementById('ledgerCount').textContent = `Showing ${visible} / ${ledgerRows.length} demo transactions`;
+      
+      let empty = document.getElementById('emptyLedger');
+      if (!visible && !empty) {
+        empty = document.createElement('tr'); 
+        empty.id = 'emptyLedger';
+        empty.innerHTML = '<td class="empty-row" colspan="7">No matching transactions found.</td>';
+        document.getElementById('ledgerBody').appendChild(empty);
+      } else if (visible && empty) {
+        empty.remove();
+      }
+    }
+    
+    [searchInput, yearFilter, statusFilter].forEach(el => el.addEventListener('input', filterLedger));
+
+    // Mobile Menu
+    document.getElementById('menuToggle').addEventListener('click', () => document.getElementById('navLinks').classList.toggle('open'));
+    document.querySelectorAll('#navLinks a').forEach(link => link.addEventListener('click', () => document.getElementById('navLinks').classList.remove('open')));
+  </script>
+</body>
+</html>
